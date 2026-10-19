@@ -1,0 +1,122 @@
+/* ============================================================================
+   Modern Ant Design v5 - global polish layer.
+   Drop-in companion to theme.js. Import once in main.jsx (after antd reset.css).
+
+   COLORS: accents use Ant Design's default primary blue (#1677FF) and its tints.
+   To rebrand, set `colorPrimary` in theme.js AND swap the accent hexes flagged
+   with the accent marker comments below (or enable AntD `cssVar` and use var(--ant-color-primary)).
+   ============================================================================ */
+
+html, body, #root { margin: 0; padding: 0; min-height: 100%; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #F4F5F7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Slim modern scrollbar ---- */
+* { scrollbar-width: thin; scrollbar-color: #CBD0D6 transparent; }
+*::-webkit-scrollbar { width: 9px; height: 9px; }
+*::-webkit-scrollbar-thumb { background: #CBD0D6; border-radius: 999px; border: 2px solid transparent; background-clip: content-box; }
+*::-webkit-scrollbar-thumb:hover { background: #AEB4BC; background-clip: content-box; }
+
+/* ---- Layout shell ---- */
+.app-header {
+  border-bottom: 3px solid #1677FF; /* accent */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+  line-height: normal; /* cancel AntD Header's tall line-height that mis-centers inline items */
+}
+.app-header .ant-space-item { display: flex; align-items: center; }
+.logo-chip { display: inline-flex; align-items: center; justify-content: center; background: #fff; border-radius: 7px; padding: 4px; line-height: 0; }
+.logo-chip svg { display: block; }
+.ant-layout-sider { border-right: 1px solid #ECEDF0; }
+.ant-menu-light { font-weight: 500; }
+
+/* ---- Cards: soft elevation + hover lift ---- */
+.ant-card {
+  border: 1px solid #EEF0F2 !important;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 6px 18px rgba(16, 24, 40, 0.05);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.ant-card-hoverable:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.12);
+  border-color: #BAD6FF !important; /* accent (tint) */
+}
+.ant-card-head { border-bottom: 1px solid #F1F2F4; font-weight: 700; letter-spacing: -0.01em; }
+
+/* ---- Typography rhythm ---- */
+h1, h2, h3, h4, h5, .ant-typography { letter-spacing: -0.02em; }
+.eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+.section-desc { color: #6B7079; margin: 2px 0 0; font-size: 13.5px; }
+
+/* ---- Tags as pills ---- */
+.ant-tag { border-radius: 999px; font-weight: 600; padding-inline: 10px; }
+
+/* ---- Tables ---- */
+.ant-table-wrapper .ant-table { border-radius: 14px; }
+.ant-table-thead > tr > th { text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px; font-weight: 700; }
+.ant-table-tbody > tr { cursor: pointer; }
+.avatar-initials {
+  width: 38px; height: 38px; border-radius: 11px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; color: #16171A; background: #F0F1F4; flex: none;
+}
+
+/* ---- Hero band ---- */
+.hero {
+  position: relative; overflow: hidden; border-radius: 20px; padding: 34px 34px 30px; color: #fff;
+  background:
+    radial-gradient(900px 320px at 88% -10%, rgba(22, 119, 255, 0.55), transparent 60%), /* accent glow */
+    linear-gradient(135deg, #16171A 0%, #181B22 55%, #0E1B33 100%);                       /* accent-tinted dark */
+  box-shadow: 0 14px 40px rgba(10, 16, 28, 0.28);
+}
+.hero::after {
+  content: ""; position: absolute; right: -60px; top: -60px; width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(22, 119, 255, 0.30), transparent 65%); /* accent glow */
+  pointer-events: none;
+}
+.hero h1 { color: #fff; margin: 12px 0 8px; font-size: 34px; font-weight: 700; }
+.hero .sub { color: rgba(255, 255, 255, 0.72); font-size: 15px; max-width: 660px; }
+.hero .eyebrow { color: #69B1FF; } /* accent (light) */
+
+/* ---- Metric tiles ---- */
+.metric-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.metric-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #7B818A; font-weight: 700; }
+.metric-value { font-size: 27px; font-weight: 700; line-height: 1.1; margin-top: 7px; letter-spacing: -0.02em; }
+.metric-sub { font-size: 12px; color: #9aa0a8; margin-top: 5px; }
+.metric-chip { width: 42px; height: 42px; border-radius: 13px; display: inline-flex; align-items: center; justify-content: center; font-size: 19px; flex: none; }
+
+/* ---- Generic icon chip + section pills (used by hero/cards/diagrams) ---- */
+.icon-chip { width: 46px; height: 46px; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 22px; }
+
+/* ---- Workflow rail (custom stepper; replaces AntD Steps for many stages) ---- */
+.rail { display: flex; position: relative; padding: 8px 0 2px; }
+.rail-step { flex: 1; text-align: center; position: relative; min-width: 0; }
+.rail-step:not(:first-child)::before {
+  content: ""; position: absolute; top: 16px; left: -50%; width: 100%; height: 3px;
+  background: #E7E9EC; z-index: 0; border-radius: 2px;
+}
+.rail-step.on:not(:first-child)::before { background: #1677FF; } /* accent */
+.rail-dot {
+  position: relative; z-index: 1; width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto;
+  font-size: 12px; font-weight: 700; background: #fff; border: 2px solid #E0E2E6; color: #9aa0a8;
+  transition: all 0.2s ease;
+}
+.rail-dot.done { background: #1677FF; border-color: #1677FF; color: #fff; }                                    /* accent */
+.rail-dot.current { background: #fff; border-color: #1677FF; color: #1677FF; box-shadow: 0 0 0 4px rgba(22, 119, 255, 0.16); } /* accent */
+.rail-dot.error { background: #CF1322; border-color: #CF1322; color: #fff; box-shadow: 0 0 0 4px rgba(207, 19, 34, 0.14); }
+.rail-label { margin-top: 8px; font-size: 11px; line-height: 1.25; color: #9aa0a8; padding: 0 4px; }
+.rail-label.active { color: #16171A; font-weight: 700; }
+
+/* ---- Timeline polish ---- */
+.ant-timeline .ant-timeline-item-head { border-color: #1677FF; } /* accent */
+
+/* ---- Responsive helper for side-by-side diagram rows ---- */
+@media (max-width: 900px) {
+  .stack-sm { grid-template-columns: 1fr !important; }
+}

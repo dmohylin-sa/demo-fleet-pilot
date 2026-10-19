@@ -1,0 +1,84 @@
+# Source: ~/.claude/skills/geniusee-ui-prototypes-to-react-app/templates/.github/workflows/deploy.yml
+# Installed by the local-deploy-presale-demo skill.
+#
+# Builds the SPA and publishes it to GitHub Pages on every push to main.
+#
+# One-time setup: Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+# The local-deploy-presale-demo skill does this through the API (build_type=workflow),
+# so a repo it created needs no manual step.
+#
+# This assumes the app is the repository root. If it sits in a subdirectory instead,
+# add a defaults block below `jobs.deploy` and point the artifact at the same folder:
+#
+#   defaults:
+#     run:
+#       working-directory: ./app
+#   ...
+#   - uses: actions/upload-pages-artifact@v4
+#     with:
+#       path: './app/dist'
+#
+# vite.config sets `base: './'`, which is what makes the build work under a project
+# page's /<repo>/ prefix without hard-coding the repository name. Leave it relative.
+#
+# There is no "copy index.html to 404.html" step: the app is a hash router, so its routes
+# never reach the server, and a copy of index.html would load no assets under a nested
+# path. A standalone public/404.html, if the app has one, is published by Vite as-is.
+name: Deploy to GitHub Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ['main']
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; a newer push supersedes one still in flight
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+          cache: 'npm'
+
+      # The dependency tree resolves cleanly, so the committed lockfile is installed
+      # as-is rather than re-resolved.
+      - name: Install dependencies
+        run: npm ci
+
+      # `npm run build` is the app's own build script, so a build error fails the deploy.
+      - name: Build
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          # Upload dist folder
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
