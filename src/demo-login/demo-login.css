@@ -1,0 +1,150 @@
+/* Demo sign-in screen. Every rule is scoped to .demo-login so nothing leaks into the app,
+   and nothing depends on the app's UI kit. A fixed full-screen layer also keeps the app's
+   own body / #root layout rules (centering, padding, dark mode) from bending this page.
+   To match the app, change --demo-login-accent and --demo-login-accent-strong only. */
+.demo-login {
+  --demo-login-accent: #1677ff;
+  --demo-login-accent-strong: #0958d9;
+  --demo-login-ink: #27273d;
+  --demo-login-body: #3a3a5a;
+  --demo-login-border: #dfdef4;
+  --demo-login-surface: #ffffff;
+  --demo-login-backdrop: #f0f0fa;
+  --demo-login-error: #b91c1c;
+  --demo-login-error-fill: #fef2f2;
+  --demo-login-shadow: rgba(0, 0, 128, 0.09);
+
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  overflow: auto;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  box-sizing: border-box;
+  background: var(--demo-login-backdrop);
+  color: var(--demo-login-body);
+  color-scheme: light;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.demo-login *,
+.demo-login *::before,
+.demo-login *::after {
+  box-sizing: border-box;
+}
+
+.demo-login-card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--demo-login-surface);
+  border: 1px solid var(--demo-login-border);
+  border-top: 4px solid var(--demo-login-accent);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px var(--demo-login-shadow);
+}
+
+.demo-login-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.demo-login-title {
+  margin: 0;
+  color: var(--demo-login-ink);
+  font: inherit;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.demo-login-sub,
+.demo-login-note {
+  margin: 0;
+  color: var(--demo-login-body);
+  font-size: 14px;
+}
+
+.demo-login-note {
+  padding-top: 14px;
+  border-top: 1px solid var(--demo-login-border);
+  text-align: center;
+}
+
+.demo-login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  color: var(--demo-login-ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.demo-login-field input {
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  padding: 0 12px;
+  color: var(--demo-login-ink);
+  background: var(--demo-login-surface);
+  border: 1px solid var(--demo-login-border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 400;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.demo-login-field input:focus {
+  border-color: var(--demo-login-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--demo-login-accent) 22%, transparent);
+}
+
+.demo-login-field input[aria-invalid='true'] {
+  border-color: var(--demo-login-error);
+}
+
+.demo-login-error {
+  padding: 10px 12px;
+  color: var(--demo-login-error);
+  background: var(--demo-login-error-fill);
+  border-left: 3px solid var(--demo-login-error);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.demo-login-button {
+  height: 44px;
+  margin: 4px 0 0;
+  padding: 0 16px;
+  color: #ffffff;
+  background: var(--demo-login-accent);
+  border: 0;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.demo-login-button:hover,
+.demo-login-button:focus-visible {
+  background: var(--demo-login-accent-strong);
+}
+
+.demo-login-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--demo-login-accent) 35%, transparent);
+  outline-offset: 2px;
+}

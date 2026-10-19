@@ -4,9 +4,12 @@ import 'antd/dist/reset.css';
 import './styles.css';
 import './demo/demo.css';
 import App from './App.jsx';
+import { DemoLoginGate } from './demo-login/DemoLoginGate';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <DemoLoginGate>
+      <App />
+    </DemoLoginGate>
   </React.StrictMode>,
 );
